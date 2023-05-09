@@ -6,7 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-    {% include 'navbar.html' %}
+    {% extends 'main.html' %}
+
+    {% block content %}
+    
     <h2>Home Template</h2>
+    
+    {% endblock content %}
 </body>
 </html>
