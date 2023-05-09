@@ -1,3 +1,4 @@
+<!--wrapper around our templates. E.g - the main theme-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,12 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-    {% extends 'main.html' %}
+    {% include 'navbar.html' %}
 
-    {% block content%}
+    {% block content %}
 
-    <h2>Room Template</h2>
 
-    {% endblock content%}
+    {% endblock %}
 </body>
 </html>
