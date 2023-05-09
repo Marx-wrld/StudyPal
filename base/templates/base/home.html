@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    {% extends 'main.html' %}
+
+    {% block content %}
+    
+    <h2>Home Template</h2>
+
+    <div>
+
+        <div>
+            {% for room in rooms %}
+                <div>
+                    <!--Variables can be passed in with two curly braces-->
+                    <!--we are getting the room object on each iteration-->
+                    <h5>{{room.id}} -- <a href="/room/{{room.id}}">{{room.name}}</a></h5>
+                </div>
+            {% endfor %}
+        </div> 
+
+    </div>
+    
+    {% endblock content %}
+</body>
+</html>
