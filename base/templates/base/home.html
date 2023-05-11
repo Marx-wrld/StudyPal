@@ -19,7 +19,7 @@
                 <div>
                     <!--Variables can be passed in with two curly braces-->
                     <!--we are getting the room object on each iteration-->
-                    <h5>{{room.id}} -- <a href="/room/{{room.id}}">{{room.name}}</a></h5>
+                    <h5>{{room.id}} -- <a href='{% url "room" room.id %}'>{{room.name}}</a></h5>
                 </div>
             {% endfor %}
         </div> 
