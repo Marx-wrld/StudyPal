@@ -41,6 +41,12 @@ def updateRoom(request, pk):
     form = RoomForm(instance=room)
     #We passed in the instance, so, this form will be prefilled with this room value
     #When the values don't match then this is not going to work
+    
+    if request.method == 'POST':
+        form = RoomForm(request.POST, instance=room) #This is going to tell our function what room to update
+        if form.is_valid():
+            form.save()
+            return redirect('home')#sends the user back to the home page
 
     context = {'form': form}
     return render(request, 'base/room_form.html', context)
