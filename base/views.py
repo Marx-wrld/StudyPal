@@ -38,7 +38,9 @@ def createRoom(request):
 
 def updateRoom(request, pk):
     room = Room.objects.get(id= pk)
-    form = RoomForm()
+    form = RoomForm(instance=room)
+    #We passed in the instance, so, this form will be prefilled with this room value
+    #When the values don't match then this is not going to work
 
     context = {'form': form}
     return render(request, 'base/room_form.html', context)
