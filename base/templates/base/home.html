@@ -19,7 +19,7 @@
             {% for room in rooms %}
                 <div>
                     <a href="{% url 'update-room' room.id %}">Edit</a>
-                    <a href="{% %}">Delete</a>
+                    <a href="{% url 'delete-room' room.id %}">Delete</a>
                     <span>@{{room.host.username}}</span>
                     <!--Variables can be passed in with two curly braces-->
                     <!--we are getting the room object on each iteration-->
