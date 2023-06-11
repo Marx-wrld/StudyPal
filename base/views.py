@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.db.models import Q
 from django.http import HttpResponse
 from .models import Room, Topic
 from .forms import RoomForm
@@ -15,7 +16,13 @@ rooms = [
 def home(request):
     q = request.GET.get('q') if request.GET.get('q') != None else '' #q is going to be equal to whatever we passed in the url
     
-    rooms = Room.objects.filter(topic__name__icontains = q)#going to the model file and getting the topic, and querying upwards to the parent(__)
+    rooms = Room.objects.filter(
+        Q(topic__name__icontains = q) |
+        Q(name__icontains=q) |
+            Q(description__icontains=q)
+        )
+    #Dynamic searches
+    #going to the model file and getting the topic, and querying upwards to the parent(__)
     #icontains will make sure that whatever value we have in our topic name atleast contains whats in here(topic)
 
     topics = Topic.objects.all()
