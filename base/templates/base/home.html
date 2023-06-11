@@ -13,7 +13,7 @@
     <style>
         .home-container{
             display: grid;
-             grid-template-columns: 1fr 3fr;/*We've created 2 columns and 3fr just specificies the number of fractions this page is going to take up*/
+            grid-template-columns: 1fr 3fr;/*We've created 2 columns and 3fr just specificies the number of fractions this page is going to take up*/
         }
     </style>
 
@@ -21,9 +21,14 @@
         <div>
             <h3>Browse Topics</h3>
             <hr> 
-            {% for topics in topic %}
+
+            <div>
+                <a href="{% url 'home' %}">All</a> <!--  This is going to be the topic name -->
+            </div>
+
+            {% for topic in topics %}
                 <div>
-                    <a>{{topic}}</a> <!-- This is going to be the topic name -->
+                    <a href="{% url 'home' %}?q={{topic.name}}">{{topic.name}}</a> <!--  This is going to be the topic name -->
                 </div>
             {% endfor %}
         </div>
