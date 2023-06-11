@@ -13,7 +13,8 @@ rooms = [
 ]
 
 def home(request):
-    rooms = Room.objects.all() 
+    q = request.GET.get('q') #q is going to be equal to whatever we passed in the url
+    rooms = Room.objects.filter(topic__name = q)#going to the model file and getting the topic, and querying upwards to the parent(__)
 
     topics = Topic.objects.all()
 
