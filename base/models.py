@@ -9,9 +9,6 @@ class Topic(models.Model):
     def __str__(self):
         return self.name
 
-
-
-
 class Room(models.Model):
     host = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     topic = models.ForeignKey(Topic, on_delete=models.SET_NULL, null=True)
@@ -21,6 +18,10 @@ class Room(models.Model):
     # participants = 
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-updated', '-created']
+    #The newest updated item will be first. the dash actually inverts it so that the newest s first
 
     #string representation of this room
     def __str__(self):
