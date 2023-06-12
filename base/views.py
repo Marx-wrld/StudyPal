@@ -13,6 +13,10 @@ rooms = [
     {'id': 4, 'name' : 'Backend Developers'}
 ]
 
+def loginPage(request):
+    context = {}
+    return render(request, 'base/login_register.html', context)
+
 def home(request):
     q = request.GET.get('q') if request.GET.get('q') != None else '' #q is going to be equal to whatever we passed in the url
     
