@@ -9,12 +9,12 @@ from .forms import RoomForm
 
 # Create your views here.
 
-rooms = [
-    {'id': 1, 'name' : 'Lets learn Python'},
-    {'id': 2, 'name' : 'Design and Code'},
-    {'id': 3, 'name' : 'Frontend Developers'},
-    {'id': 4, 'name' : 'Backend Developers'}
-]
+# rooms = [
+#     {'id': 1, 'name' : 'Lets learn Python'},
+#     {'id': 2, 'name' : 'Design and Code'},
+#     {'id': 3, 'name' : 'Frontend Developers'},
+#     {'id': 4, 'name' : 'Backend Developers'}
+# ]
 
 def loginPage(request):
 
