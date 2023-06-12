@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
 from django.db.models import Q
+from django.contrib.auth.models import User
+from django.contrib import messages
 from django.http import HttpResponse
 from .models import Room, Topic
 from .forms import RoomForm
@@ -14,6 +16,16 @@ rooms = [
 ]
 
 def loginPage(request):
+
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        try:
+            user = User.objects.get(username=username) #checking if this user exists if not we want to throw in an error
+        except:
+            messages.error(request, 'User Does Not Exist')
+
     context = {}
     return render(request, 'base/login_register.html', context)
 
