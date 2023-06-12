@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
+from django.db.models import Q
 from django.http import HttpResponse
-from .models import Room
+from .models import Room, Topic
 from .forms import RoomForm
 
 # Create your views here.
@@ -13,8 +14,20 @@ rooms = [
 ]
 
 def home(request):
-    rooms = Room.objects.all() 
-    context = {'rooms':rooms}
+    q = request.GET.get('q') if request.GET.get('q') != None else '' #q is going to be equal to whatever we passed in the url
+    
+    rooms = Room.objects.filter(
+        Q(topic__name__icontains = q) |
+        Q(name__icontains=q) |
+            Q(description__icontains=q)
+        )
+    #Dynamic searches
+    #going to the model file and getting the topic, and querying upwards to the parent(__)
+    #icontains will make sure that whatever value we have in our topic name atleast contains whats in here(topic)
+
+    topics = Topic.objects.all()
+
+    context = {'rooms':rooms, 'topics': topics}
     return render(request, 'base/home.html', context)#Passing in a dictionary and specifying the value names
 
 def room(request, pk): #pk-primary key
