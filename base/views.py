@@ -27,7 +27,9 @@ def home(request):
 
     topics = Topic.objects.all()
 
-    context = {'rooms':rooms, 'topics': topics}
+    room_count = rooms.count() #You can also use the python len() method
+
+    context = {'rooms':rooms, 'topics': topics, 'room_count': room_count}
     return render(request, 'base/home.html', context)#Passing in a dictionary and specifying the value names
 
 def room(request, pk): #pk-primary key
