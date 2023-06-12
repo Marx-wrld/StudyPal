@@ -16,4 +16,14 @@
     </form>
 </div>
 
+<div>
+    <form method="POST" action="">
+        {% csrf_token %}
+
+        <!-- We'll autogenerate the actual form fields -->
+
+        <input type="submit" value="Register" />
+    </form>
+</div> 
+
 {% endblock content %}
