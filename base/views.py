@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.db.models import Q
 from django.contrib.auth.models import User
 from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
 from .models import Room, Topic
 from .forms import RoomForm
@@ -24,7 +25,16 @@ def loginPage(request):
         try:
             user = User.objects.get(username=username) #checking if this user exists if not we want to throw in an error
         except:
-            messages.error(request, 'User Does Not Exist')
+            messages.error(request, 'User does not exist')
+
+        user = authenticate(request, username=username, password=password) #authenticate either throws in an error or throws in a user object that matches these credentials.
+
+        if user is not None:
+            login(request, user) 
+            return redirect('home')
+            #login adds this session into our database and then inside our browser
+        else:
+            messages.error(request, 'Username OR Password does not exist')
 
     context = {}
     return render(request, 'base/login_register.html', context)
