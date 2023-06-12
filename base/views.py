@@ -3,6 +3,7 @@ from django.db.models import Q
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from .models import Room, Topic
 from .forms import RoomForm
@@ -70,6 +71,8 @@ def room(request, pk): #pk-primary key
 
     return render(request, 'base/room.html', context)
 
+#restricting some pages regardless of whether they are logged in or logged out
+@login_required(login_url='login')
 def createRoom(request): 
     form = RoomForm()
 
@@ -82,12 +85,16 @@ def createRoom(request):
     context = {'form': form} 
     return render(request, 'base/room_form.html', context)
 
+@login_required(login_url='login')
 def updateRoom(request, pk):
     room = Room.objects.get(id= pk)
     form = RoomForm(instance=room)
     #We passed in the instance, so, this form will be prefilled with this room value
     #When the values don't match then this is not going to work
     
+    if request.user != room.host:
+        return HttpResponse('You are not Logged in!') 
+
     if request.method == 'POST':
         form = RoomForm(request.POST, instance=room) #This is going to tell our function what room to update
         if form.is_valid():
@@ -97,6 +104,7 @@ def updateRoom(request, pk):
     context = {'form': form}
     return render(request, 'base/room_form.html', context)
 
+@login_required(login_url='login')
 def deleteRoom(request, pk):
     room = Room.objects.get(id=pk)
     if request.method == 'POST':
