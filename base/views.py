@@ -93,7 +93,7 @@ def updateRoom(request, pk):
     #When the values don't match then this is not going to work
     
     if request.user != room.host:
-        return HttpResponse('You are not Logged in!') 
+        return HttpResponse('You are not allowed here!') 
 
     if request.method == 'POST':
         form = RoomForm(request.POST, instance=room) #This is going to tell our function what room to update
