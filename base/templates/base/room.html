@@ -27,6 +27,15 @@
 
     </div>
 
+     {% if request.user.is_authenticated %} <!--Only an authenticated user can write a message -->
+    <div class="comment-form">
+        <form method="POST" action="">
+            {% csrf_token %}
+            <input type="text" name="body" placeholder="Write your message here.." />
+        </form>
+    </div>
+    {% endif %}
+
     {% endblock content %}
 </body>
 </html>
