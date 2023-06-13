@@ -26,7 +26,7 @@
 <div>
     <form method="POST" action="">
         {% csrf_token %}
-
+        {{form.as_p}}
         <!-- We'll autogenerate the actual form fields -->
 
         <input type="submit" value="Register" />
