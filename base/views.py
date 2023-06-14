@@ -6,7 +6,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.contrib.auth.forms import UserCreationForm
-from .models import Room, Topic
+from .models import Room, Topic, Message
 from .forms import RoomForm
 
 # Create your views here.
@@ -91,6 +91,15 @@ def room(request, pk): #pk-primary key
     #In order to get the pk value, later on we'll use this primary key to query the database but for now we'll use the variable rooms to create some logic
     room = Room.objects.get(id=pk)
     room_messages = room.message_set.all().order_by('-created') #Give me the set of messages related to this room
+
+    if request.method == 'POST':
+        message = Message.objects.create(
+            user = request.user,
+            room = room,
+            body = request.POST.get('body') #passing the body from room.html in the authenticate section
+        )
+        return redirect('room', pk=room.id)
+
     context = {'room': room, 'room_messages': room_messages}
 
     return render(request, 'base/room.html', context)
