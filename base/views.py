@@ -83,14 +83,15 @@ def home(request):
     topics = Topic.objects.all()
 
     room_count = rooms.count() #You can also use the python len() method
+    room_messages = Message.objects.all() #grabbing all recent user messages
 
-    context = {'rooms':rooms, 'topics': topics, 'room_count': room_count}
+    context = {'rooms':rooms, 'topics': topics, 'room_count': room_count, 'room_messages': room_messages}
     return render(request, 'base/home.html', context)#Passing in a dictionary and specifying the value names
 
 def room(request, pk): #pk-primary key
     #In order to get the pk value, later on we'll use this primary key to query the database but for now we'll use the variable rooms to create some logic
     room = Room.objects.get(id=pk)
-    room_messages = room.message_set.all().order_by('-created') #Give me the set of messages related to this room
+    room_messages = room.message_set.all() #Give me the set of messages related to this room
     participants = room.participants.all()
 
     if request.method == 'POST':
