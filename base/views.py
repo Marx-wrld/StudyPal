@@ -99,6 +99,7 @@ def room(request, pk): #pk-primary key
             room = room,
             body = request.POST.get('body') #passing the body from room.html in the authenticate section
         )
+        room.participants.add(request.user) #adding participants to the room
         return redirect('room', pk=room.id)
 
     context = {'room': room, 'room_messages': room_messages, 'participants': participants}
