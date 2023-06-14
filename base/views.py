@@ -27,7 +27,7 @@ def loginPage(request):
         return redirect('home')
 
     if request.method == 'POST':
-        username = request.POST.get('username')
+        username = request.POST.get('username').lower()
         password = request.POST.get('password')
 
         try:
@@ -57,9 +57,14 @@ def registerPage(request):
 
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
-        if form.is_vaild():
+        if form.is_valid():
             user = form.save(commit=False)
             user.username = user.username.lower()
+            user.save()
+            login(request, user)
+            return redirect('home')
+        else:
+            messages.error(request, 'An error occurred during registration!')
             
     return render(request, 'base/login_register.html', {'form': form})
 
@@ -85,7 +90,8 @@ def home(request):
 def room(request, pk): #pk-primary key
     #In order to get the pk value, later on we'll use this primary key to query the database but for now we'll use the variable rooms to create some logic
     room = Room.objects.get(id=pk)
-    context = {'room': room}
+    room_messages = room.message_set.all().order_by('-created') #Give me the set of messages related to this room
+    context = {'room': room, 'room_messages': room_messages}
 
     return render(request, 'base/room.html', context)
 
