@@ -83,7 +83,7 @@ def home(request):
     topics = Topic.objects.all()
 
     room_count = rooms.count() #You can also use the python len() method
-    room_messages = Message.objects.all() #grabbing all recent user messages
+    room_messages = Message.objects.filter(Q(room__topic__name__icontains=q)) #grabbing all recent user messages
 
     context = {'rooms':rooms, 'topics': topics, 'room_count': room_count, 'room_messages': room_messages}
     return render(request, 'base/home.html', context)#Passing in a dictionary and specifying the value names
