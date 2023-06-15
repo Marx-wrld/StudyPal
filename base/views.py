@@ -6,7 +6,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.contrib.auth.forms import UserCreationForm
-from .models import Room, Topic
+from .models import Room, Topic, Message
 from .forms import RoomForm
 
 # Create your views here.
@@ -83,15 +83,27 @@ def home(request):
     topics = Topic.objects.all()
 
     room_count = rooms.count() #You can also use the python len() method
+    room_messages = Message.objects.filter(Q(room__topic__name__icontains=q)) #grabbing all recent user messages
 
-    context = {'rooms':rooms, 'topics': topics, 'room_count': room_count}
+    context = {'rooms':rooms, 'topics': topics, 'room_count': room_count, 'room_messages': room_messages}
     return render(request, 'base/home.html', context)#Passing in a dictionary and specifying the value names
 
 def room(request, pk): #pk-primary key
     #In order to get the pk value, later on we'll use this primary key to query the database but for now we'll use the variable rooms to create some logic
     room = Room.objects.get(id=pk)
-    room_messages = room.message_set.all().order_by('-created') #Give me the set of messages related to this room
-    context = {'room': room, 'room_messages': room_messages}
+    room_messages = room.message_set.all() #Give me the set of messages related to this room
+    participants = room.participants.all()
+
+    if request.method == 'POST':
+        message = Message.objects.create(
+            user = request.user,
+            room = room,
+            body = request.POST.get('body') #passing the body from room.html in the authenticate section
+        )
+        room.participants.add(request.user) #adding participants to the room
+        return redirect('room', pk=room.id)
+
+    context = {'room': room, 'room_messages': room_messages, 'participants': participants}
 
     return render(request, 'base/room.html', context)
 
@@ -139,3 +151,15 @@ def deleteRoom(request, pk):
         room.delete()
         return redirect('home')
     return render(request, 'base/delete.html', {'obj': room})
+
+@login_required(login_url='login')
+def deleteMessage(request, pk):
+    message = Message.objects.get(id=pk)
+
+    if request.user != message.user:
+        return HttpResponse('You are not allowed here!') 
+
+    if request.method == 'POST':
+        message.delete()
+        return redirect('home')
+    return render(request, 'base/delete.html', {'obj': message})
