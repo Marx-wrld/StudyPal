@@ -107,6 +107,14 @@ def room(request, pk): #pk-primary key
 
     return render(request, 'base/room.html', context)
 
+def userProfile(request, pk):
+    user = User.objects.get(id=pk)
+    rooms = user.room_set.all() # getting all the children of a specific object by using '_set.all()' 
+    room_messages = user.message_set.all() 
+    topics = Topic.objects.all() # we need to access all Topics inside of our profile component
+    context = {'user': user, 'rooms': rooms, 'room_messages': room_messages, 'topics': topics}
+    return render(request, 'base/profile.html', context)
+
 #restricting some pages regardless of whether they are logged in or logged out
 @login_required(login_url='login')
 def createRoom(request): 
