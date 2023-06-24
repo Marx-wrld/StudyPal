@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body> 
+    {% extends 'main.html' %}
+
+    {% block content %}
+
+    <style>
+        .home-container{
+            display: grid;
+            grid-template-columns: 1fr 3fr 1fr;/*We've created 2 columns and 3fr just specificies the number of fractions this page is going to take up*/
+        }
+    </style>
+
+    <div class="home-container">
+        <div>
+           {% include 'base/topics_component.html' %} 
+           <!-- simplifying our work by creating separate html files for our app's components -->
+        </div>
+
+        <div>
+            <h5>{{room_count}} rooms available</h5>
+            <a href="{% url 'create-room' %}">Create Room</a>
+
+            {% include 'base/feed_component.html' %}
+    
+        </div>
+
+       <div>
+           {% include 'base/activity_component.html' %}
+       </div>
+    </div>
+    
+    {% endblock content %}
+</body>
+</html>
