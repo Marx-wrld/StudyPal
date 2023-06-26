@@ -1,14 +1,14 @@
 {% for room in rooms %}
 <div class="roomListRoom">
     <div class="roomListRoom__header">
-      <a href="profile.html" class="roomListRoom__author">
+      <a href="{% url 'user-profile' room.host.id %}" class="roomListRoom__author">
         <div class="avatar avatar--small">
           <img src="https://randomuser.me/api/portraits/women/11.jpg" />
         </div>
-        <span>@sulamita_ivy</span>
+        <span>{{room.host.username}}</span>
       </a>
       <div class="roomListRoom__actions">
-        <span>5 days ago</span>
+        <span>{{room.created|timesince}} ago</span>
       </div>
     </div>
     <div class="roomListRoom__content">
@@ -44,10 +44,6 @@
 
   {% for room in rooms %}
         <div>
-            {% if request.user == room.host %}
-            <a href="{% url 'update-room' room.id %}">Edit</a>
-            <a href="{% url 'delete-room' room.id %}">Delete</a>
-            {% endif %}
             
             <a href="{% url 'user-profile' room.host.id %}">@{{room.host.username}}</a>
             <!--Variables can be passed in with two curly braces-->
@@ -55,5 +51,6 @@
             <h5>{{room.id}} -- <a href='{% url "room" room.id %}'>{{room.name}}</a></h5>
             <small>{{room.topic.name}}</small>
             <hr>
+
         </div>
     {% endfor %}
