@@ -119,22 +119,29 @@ def userProfile(request, pk):
 @login_required(login_url='login')
 def createRoom(request): 
     form = RoomForm()
+    topics = Topic.objects.all()
 
     if request.method == 'POST':
-        form = RoomForm(request.POST)
-        if form.is_valid():
-            room = form.save(commit=False)
-            room.host = request.user
-            room.save()
-            return redirect('home')
+        #if topic is present, the get function will be used else, the create function will be used and will update our db
+        topic_name = request.POST.get('topic')
+        topic, created = Topic.objects.get_or_create(name=topic_name)
+        
+        Room.objects.create(
+            host=request.user,
+            topic=topic,
+            name=request.POST.get('name'),
+            description=request.POST.get('description')
+        )
+        return redirect('home')
  
-    context = {'form': form} 
+    context = {'form': form, 'topics': topics} 
     return render(request, 'base/room_form.html', context)
 
 @login_required(login_url='login')
 def updateRoom(request, pk):
     room = Room.objects.get(id= pk)
     form = RoomForm(instance=room)
+    topics = Topic.objects.all()
     #We passed in the instance, so, this form will be prefilled with this room value
     #When the values don't match then this is not going to work
     
@@ -142,12 +149,15 @@ def updateRoom(request, pk):
         return HttpResponse('You are not allowed here!') 
 
     if request.method == 'POST':
-        form = RoomForm(request.POST, instance=room) #This is going to tell our function what room to update
-        if form.is_valid():
-            form.save()
-            return redirect('home')#sends the user back to the home page
+        topic_name = request.POST.get('topic')
+        topic, created = Topic.objects.get_or_create(name=topic_name)
+        room.name = request.POST.get('name')     
+        room.topic = topic    
+        room.description = request.POST.get('description')     
+        room.save()
+        return redirect('home')#sends the user back to the home page
 
-    context = {'form': form}
+    context = {'form': form, 'topics': topics, 'room': room}
     return render(request, 'base/room_form.html', context)
 
 @login_required(login_url='login')
