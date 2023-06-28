@@ -22,15 +22,29 @@
           <form class="form" action="" method="POST">
             {% csrf_token %}
 
-            {% for field in form %}
             <div class="form__group">
-              <label for="room_name">{{field.label}}</label>
+                <label for="room_topic">Topic</label>
+                <input type="text" name="topic" list="topic-list"/>
+                <datalist id="topic-list"> 
+                    <!-- Options when the user starts typing something in -->
+                    <select name="room-topic" id="room_topic">
+                        {% for topic in topics %}
+                        <option value="{{topic.name}}">{{topic.name}}</option>
+                        {% endfor %}
+                    </select>
+                </datalist>
+              </div>
+              
 
-              {{field}}
-
-              <!-- <input id="room_name" name="room_name" type="text" placeholder="E.g. Mastering Python + Django" /> -->
+            <div class="form__group">
+              <label for="room_name">Name</label>
+              {{form.name}}
             </div>
-            {% endfor %}
+
+            <div class="form__group">
+                <label for="room_description">Description</label>
+                {{form.description}}
+              </div>
 
             <!-- <div class="form__group">
               <label for="room_topic">Topic</label>
