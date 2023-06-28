@@ -24,7 +24,7 @@
 
             <div class="form__group">
                 <label for="room_topic">Topic</label>
-                <input type="text" name="topic" list="topic-list"/>
+                <input type="text" name="topic" value="{{room.topic.name}}" list="topic-list"/>
                 <datalist id="topic-list"> 
                     <!-- Options when the user starts typing something in -->
                     <select name="room-topic" id="room_topic">
@@ -62,7 +62,7 @@
 
             <div class="form__action">
               <a class="btn btn--dark" href="index.html">Cancel</a>
-              <button class="btn btn--main" type="submit">Create Room</button>
+              <button class="btn btn--main" type="submit">Submit</button>
             </div>
           </form>
         </div>
