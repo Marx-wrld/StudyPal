@@ -200,3 +200,7 @@ def topicsPage(request):
     q = request.GET.get('q') if request.GET.get('q') != None else ''
     topics = Topic.objects.filter(name__icontains=q) #filtering the topics to show only 5 on the home page and to view others the user has to click more
     return render(request, 'base/topics.html', {'topics': topics})
+
+def activityPage(request):
+    room_messages = Message.objects.all()
+    return render (request, 'base/activity.html', {})
