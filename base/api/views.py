@@ -18,3 +18,9 @@ def getRooms(request):
     serializer = RoomSerializer(rooms, many=True) #many means that their are multiple objects that we are going to serializers
     return Response(serializer.data)
 #Response cannot return back python objects, it ws able to serialize it in routes because it was a dictionary
+
+@api_view(['GET']) #view for a single room object
+def getRoom(request, pk):
+    room = Room.objects.get(id=pk)
+    serializer = RoomSerializer(room, many=False) 
+    return Response(serializer.data)
