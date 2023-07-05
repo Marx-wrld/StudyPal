@@ -15,3 +15,4 @@ urlpatterns = [
     path('', include('base.urls')),
     path('api/', include('base.api.urls'))
 ]
+
