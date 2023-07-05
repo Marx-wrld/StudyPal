@@ -1,11 +1,11 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-#we are no longer using the default user model that django gives us
 
 # Create your models here.
+
 class User(AbstractUser):
     pass
-
+#trying to get django to look at our new user model
 
 class Topic(models.Model):
     name = models.CharField(max_length=200)
