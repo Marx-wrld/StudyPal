@@ -4,7 +4,15 @@ from django.contrib.auth.models import AbstractUser
 # Create your models here.
 
 class User(AbstractUser):
-    pass
+    name = models.CharField(max_length=200, null=True)
+    email = models.EmailField(unique=True, null=True)
+    bio = models.TextField(null=True) 
+    
+    # image = models.ImageField(null=True)
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
+
 #trying to get django to look at our new user model
 
 class Topic(models.Model):
