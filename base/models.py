@@ -8,7 +8,8 @@ class User(AbstractUser):
     email = models.EmailField(unique=True, null=True)
     bio = models.TextField(null=True) 
     
-    # image = models.ImageField(null=True)
+    avatar = models.ImageField(null=True, default="avatar.svg")
+    # installing pillow libary for image processing functionality including resizing, rotation and transformation 
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
