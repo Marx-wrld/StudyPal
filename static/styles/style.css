@@ -964,7 +964,7 @@ a {
 }
 
 .room__header {
-  max-height: 30vh;
+  max-height: 45vh;
   overflow-y: auto;
   position: absolute;
   width: 95%;
@@ -1043,8 +1043,14 @@ a {
 
 .room__conversation {
   margin-top: 1rem;
-  margin-bottom: 4rem;
+  margin-bottom: 0rem;
   height: 64%;
+}
+
+.room__login__message{
+  background: var(--color-dark-light);
+  padding: 0.5rem 1.5rem;
+  border-radius: 0.7rem;
 }
 
 .threads h3 {
@@ -1057,8 +1063,8 @@ a {
   background: var(--color-bg);
   border-radius: 0.7rem;
   overflow-y: auto;
-  height: 100%;
-  margin-top: 28vh;
+  height: 50%;
+  margin-top: 50vh;
   padding: 0 2rem 4rem 2rem;
 }
 

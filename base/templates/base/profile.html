@@ -11,9 +11,9 @@
       <!-- Room List Start -->
       <div class="roomList">
         <div class="profile">
-          <div class="profile__avatar">
+          <div class="profile__avatar">    
             <div class="avatar avatar--large active">
-              <img src="{{message.user.avatar.url}}" />
+              <img src="{{user.avatar.url}}" />
             </div>
           </div>
           <div class="profile__info">
@@ -27,9 +27,7 @@
           <div class="profile__about">
             <h3>About</h3>
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur illo tenetur
-              facilis sunt nemo debitis quisquam hic atque aut? Ducimus alias placeat optio
-              accusamus repudiandae quis ab ex exercitationem rem?
+              {{user.bio}}
             </p>
           </div>
         </div>
@@ -47,6 +45,7 @@
       <!-- Activities Start -->
       {% include 'base/activity_component.html' %}
       <!-- Activities End -->
+
     </div>
   </main>
 {% endblock content %}
