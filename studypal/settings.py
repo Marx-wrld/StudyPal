@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     'corsheaders',
 ]
 
+AUTH_USER_MODEL = 'base.User'
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
 
@@ -128,9 +130,13 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+MEDIA_URL = 'images/' #url for our uploaded images
+
 STATICFILES_DIRS = [
-    BASE_DIR / 'static'
+    BASE_DIR / 'static' #For standard images,css,js and html files
 ]
+
+MEDIA_ROOT = BASE_DIR / 'static/images' #where django should put our uploaded images
 
 # STATIC_ROOT = Config for when a user uploads a profile pic 
 

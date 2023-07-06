@@ -1,5 +1,7 @@
 from django.contrib import admin
 from django.urls import path, include 
+from django.conf import settings #adding the filepath to these urls
+from django.conf.urls.static import static
 #from django.http import HttpResponse
 
 """Creating Views that is the function based views
@@ -15,3 +17,6 @@ urlpatterns = [
     path('', include('base.urls')),
     path('api/', include('base.api.urls'))
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+#set the url and get the media from root
