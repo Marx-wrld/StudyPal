@@ -12,7 +12,7 @@ I've also included a REST API, built from this app's data.
 ![Screenshot (15)](https://github.com/Marx-wrld/StudyPal/assets/105711066/ea10a612-9d3c-4db0-b7a8-947f09fb7571)
 
 #### Login page
-![Screenshot (17)](https://github.com/Marx-wrld/StudyPal/assets/105711066/5a45cc65-3d2d-441b-b63e-95f583022b02)
+![Screenshot (17)](https://github.com/Marx-wrld/StudyPal/assets/105711066/77cbcd62-d38d-426b-87ea-d056eb4e260f)
 
 #### Register page
 ![Screenshot (18)](https://github.com/Marx-wrld/StudyPal/assets/105711066/00930ecc-436e-4332-a98c-31223d947417)
