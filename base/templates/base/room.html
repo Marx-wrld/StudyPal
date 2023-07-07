@@ -74,12 +74,10 @@
                   <span>@{{room.host.username}}</span>
                 </a>
               </div>
-              <!-- <div class="room__details">
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quasi, tenetur laudantium? Dicta repellendus
-                rerum consectetur, voluptatem repudiandae eum ea porro cupiditate provident nulla, deserunt, ab ipsum
-                corporis laboriosam deleniti molestias?
-              </div> -->
-              <span class="room__topics">JavaScript</span>
+              <div class="room__details">
+                {{room.description}}
+              </div>
+              <span class="room__topics">{{room.topic}}</span>
             </div>
             <div class="room__conversation">
               <div class="threads scroll">
@@ -138,7 +136,7 @@
             {% for user in participants %}
             <a href="{% url 'user-profile' user.id %}" class="participant">
               <div class="avatar avatar--medium">
-                <img src="{{room.host.avatar.url}}" />
+                <img src="{{user.avatar.url}}" />
               </div>
               <p>
                 {{user.username}}
