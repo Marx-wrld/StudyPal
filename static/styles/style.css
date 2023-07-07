@@ -1043,7 +1043,7 @@ a {
 
 .room__conversation {
   margin-top: 1rem;
-  margin-bottom: 0rem;
+  margin-bottom: 4rem;
   height: 64%;
 }
 
@@ -1063,8 +1063,8 @@ a {
   background: var(--color-bg);
   border-radius: 0.7rem;
   overflow-y: auto;
-  height: 50%;
-  margin-top: 50vh;
+  height: 100%;
+  margin-top: 28vh;
   padding: 0 2rem 4rem 2rem;
 }
 
